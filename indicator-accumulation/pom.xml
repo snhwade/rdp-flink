@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.riskplatform</groupId>
+        <artifactId>risk-decision-data-engine</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>indicator-accumulation</artifactId>
+    <name>indicator-accumulation</name>
+    <description>鏁版嵁寮曟搸 路 鎸囨爣娴佺疮璁★紙Flink锛夛細娑堣垂 Kafka 璁㈠崟缁堟€侊紝璁＄畻鍒囩墖澧為噺锛屽洖鍐?Kafka 渚涘璺瓨鍌ㄦ秷璐?/description>
+
+    <dependencies>
+        <!-- 鍏变韩浜嬩欢濂戠害 -->
+        <dependency>
+            <groupId>com.riskplatform</groupId>
+            <artifactId>commons-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- Flink 娴佸鐞嗘牳蹇冿紙provided锛氶泦缇ゅ凡鎻愪緵杩愯鏃讹級 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-java</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Kafka 杩炴帴鍣?-->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka</artifactId>
+        </dependency>
+        <!-- Kafka 杩炴帴鍣ㄨ繍琛屾椂渚濊禆鐨?Source/Sink 鍩虹妗嗘灦锛圧ecordEmitter 绛夛級 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-base</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 绱鑴氭湰锛欰viator -->
+        <dependency>
+            <groupId>com.googlecode.aviator</groupId>
+            <artifactId>aviator</artifactId>
+        </dependency>
+        <!-- JSON 搴忓垪鍖栵紙璁㈠崟缁堟€?/ 鍒囩墖澧為噺浜嬩欢锛?-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- 鏈湴杩愯/娴嬭瘯鏃剁殑 Flink 杩愯鏃朵笌 MiniCluster 娴嬭瘯鏀寔 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-runtime-web</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.jqwik</groupId>
+            <artifactId>jqwik</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 鎵?fat-jar 渚?Flink 鎻愪氦锛堝紑婧?shade 鎻掍欢锛?-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.riskplatform.flink.IndicatorAccumulationJob</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+

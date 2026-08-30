@@ -1,0 +1,35 @@
+# Build
+**/target/
+**/node_modules/
+**/dist/
+**/.next/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Logs & temp
+*.log
+*.tmp
+*.bak
+
+# Secrets / local config
+.env
+.env.*
+**/application-local.yml
+**/*-local.yml
+*.pem
+*.key
+*.p12
+credentials.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test / coverage
+**/surefire-reports/
+**/.pytest_cache/
